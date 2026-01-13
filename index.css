@@ -1,0 +1,215 @@
+@font-face {
+  font-family: "San Fransisco";
+  src: url("Fonts/SF-Pro-Display-Regular.otf");
+}
+@font-face {
+  font-family: "San Fransisco Mono";
+  src: url("Fonts/SFMono-Regular.otf");
+}
+
+* {
+  margin: 0;
+  border: 0;
+  padding: 0;
+  font-family: "San Fransisco", inter;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: #000000;
+  overflow: hidden;
+}
+
+svg {
+  width: 32px;
+  height: 32px;
+  stroke: #ffffff;
+}
+
+.hidden {
+  opacity: 0 !important;
+}
+
+.removed {
+  display: none !important;
+}
+
+.glassy {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(16px);
+  transition: background 0.1s ease-in-out;
+  border-radius: 32px;
+}
+
+.glassy:active {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border: none;
+}
+
+.button:has(> :not(.removed) ~ :not(.removed)) {
+  padding: 8px 12px;
+  gap: 12px;
+}
+
+#controls {
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  padding: 32px;
+  z-index: 10;
+  height: calc(100vh - 64px);
+  width: calc(100vw - 64px);
+  transition: all 0.1s ease-in-out;
+}
+
+#left,
+#center,
+#right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+img {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  display: block;
+  margin: 0;
+}
+
+.panels {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+#leftPanel {
+  width: 60vh;
+  height: 60vh;
+
+  /* outline: 1px solid #fff;
+  border-radius: 50%;
+  overflow: visible; */
+}
+
+#rightPanel {
+  width: calc(100vw - (20vh * 3) - 60vh);
+  height: 60vh;
+}
+
+#clockBackground {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 5%;
+  box-sizing: border-box;
+}
+
+.largeTick,
+.smallTick {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  transform-origin: center;
+  margin: 0;
+}
+
+.largeTick {
+  background-color: #ff0000;
+  width: 0.5vw;
+  height: 6vw;
+  border-radius: 1vw;
+}
+
+.smallTick {
+  background-color: #800000;
+  width: 0.5vw;
+  height: 3vw;
+  border-radius: 1vw;
+}
+
+:root {
+  --edge-offset: 11%;
+  --offset-d: 22%;
+}
+
+#tickLarge1 {
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+
+#tickSmall1 {
+  top: var(--edge-offset);
+  left: calc(50% + var(--offset-d));
+  transform: translate(-50%, -50%) rotate(30deg);
+}
+
+#tickSmall2 {
+  top: calc(50% - var(--offset-d));
+  right: var(--edge-offset);
+  transform: translate(50%, -50%) rotate(60deg);
+}
+
+#tickLarge2 {
+  top: 50%;
+  right: 10%;
+  transform: translate(50%, -50%) rotate(90deg);
+}
+
+#tickSmall3 {
+  bottom: calc(50% - var(--offset-d));
+  right: var(--edge-offset);
+  transform: translate(50%, 50%) rotate(120deg);
+}
+
+#tickSmall4 {
+  bottom: var(--edge-offset);
+  left: calc(50% + var(--offset-d));
+  transform: translate(-50%, 50%) rotate(150deg);
+}
+
+#tickLarge3 {
+  bottom: 10%;
+  left: 50%;
+  transform: translate(-50%, 50%) rotate(180deg);
+}
+
+#tickSmall5 {
+  bottom: var(--edge-offset);
+  left: calc(50% - var(--offset-d));
+  transform: translate(-50%, 50%) rotate(210deg);
+}
+
+#tickSmall6 {
+  bottom: calc(50% - var(--offset-d));
+  left: var(--edge-offset);
+  transform: translate(-50%, 50%) rotate(240deg);
+}
+
+#tickLarge4 {
+  top: 50%;
+  left: 10%;
+  transform: translate(-50%, -50%) rotate(270deg);
+}
+
+#tickSmall7 {
+  top: calc(50% - var(--offset-d));
+  left: var(--edge-offset);
+  transform: translate(-50%, -50%) rotate(300deg);
+}
+
+#tickSmall8 {
+  top: var(--edge-offset);
+  left: calc(50% - var(--offset-d));
+  transform: translate(-50%, -50%) rotate(330deg);
+}
