@@ -5,90 +5,47 @@
 // Intercept (b) ≈ -9.78
 
 function scale_number(x) {
-    const m = 1.2852;
-    const b = -14.2625;
-    return (m * x) + b;
+    const margin = 6;
+    let raw_percent = ((((x - 1) % 15)) / 14) * 100;
+    return margin + (raw_percent * (100 - (2 * margin)) / 100);
 }
 
 function generatePanel(panel) {
     panel.innerHTML = '';
 
     for (let i = 1; i <= 60; i++) {
-        let angleDeg = i * 6;
-        let angleRad = (angleDeg - 90) * (Math.PI / 180);
-
-        const cos = Math.cos(angleRad);
-        const sin = Math.sin(angleRad);
-
-        let x = 50 + 50 * cos;
-        let y = 50 + 50 * sin;
-
         let tickDiv = document.createElement('div');
         tickDiv.style.position = 'absolute';
-        tickDiv.style.transform = `translate(-50%, -50%) rotate(${angleDeg}deg)`;
+        tickDiv.style.transform = `translate(-50%, 0%)`;
+        tickDiv.classList.add('tick00');
 
-        let smallOffset = 1.3;
-        let mediumOffset = 2.9;
-        let largeOffset = 3.5;
+        if (i >= 1 && i <= 15) {
+            tickDiv.style.top = "0%";
+            tickDiv.style.left = `${scale_number(i)}%`;
+        } else if (i >= 16 && i <= 30) {
+            tickDiv.style.left = "100%";
+            tickDiv.style.top = `${scale_number(i)}%`;
+            tickDiv.style.transform = `rotate(${90}deg)`
+        } else if (i >= 31 && i <= 45) {
+            tickDiv.style.top = "100%";
+            tickDiv.style.left = `${scale_number(i)}%`;
+            tickDiv.style.transform = `rotate(${180}deg)`
+        } else if (i >= 46 && i <= 60) {
+            tickDiv.style.left = "0%";
+            tickDiv.style.top = `${scale_number(i)}%`;
+            tickDiv.style.transform = `rotate(${-90}deg)`
+        }
 
-        if (angleDeg <= 45 || angleDeg > 315) {
-            if (i % 15 === 0) {
-                tickDiv.className = 'tick00 tick-medium00';
-                tickDiv.style.top = `${mediumOffset}vw`;
-                tickDiv.style.left = `${x}%`;
-            } else if (i % 5 === 0) {
-                tickDiv.className = 'tick00 tick-large00';
-                tickDiv.style.top = `${largeOffset}vw`;
-                tickDiv.style.left = `${x > 50 ? x + 4 : x - 4}%`;
-            } else {
-                tickDiv.className = 'tick00 tick-small00';
-                tickDiv.style.top = `${smallOffset}vw`;
-                tickDiv.style.left = `${scale_number(x)}%`;
-            }
-        } else if (angleDeg > 45 && angleDeg <= 135) {
-            if (i % 15 === 0) {
-                tickDiv.className = 'tick00 tick-medium00';
-                tickDiv.style.left = `calc(100% - ${mediumOffset}vw)`;
-                tickDiv.style.top = `${y}%`;
-            } else if (i % 5 === 0) {
-                tickDiv.className = 'tick00 tick-large00';
-                tickDiv.style.left = `calc(100% - ${largeOffset}vw)`;
-                tickDiv.style.top = `${y > 50 ? y + 3 : y - 3}%`;
-            } else {
-                tickDiv.className = 'tick00 tick-small00';
-                tickDiv.style.left = `calc(100% - ${smallOffset}vw)`;
-                tickDiv.style.top = `${scale_number(y)}%`;
-            }
-        } else if (angleDeg > 135 && angleDeg <= 225) {
+        const j = ((i - 1) % 15) + 1;
 
-            if (i % 15 === 0) {
-                tickDiv.className = 'tick00 tick-medium00';
-                tickDiv.style.top = `calc(100% - ${mediumOffset}vw)`;
-                tickDiv.style.left = `${x}%`;
-            } else if (i % 5 === 0) {
-                tickDiv.className = 'tick00 tick-large00';
-                tickDiv.style.top = `calc(100% - ${largeOffset}vw)`;
-                tickDiv.style.left = `${x > 50 ? x + 4 : x - 4}%`;
-            } else {
-                tickDiv.className = 'tick00 tick-small00';
-                tickDiv.style.top = `calc(100% - ${smallOffset}vw)`;
-                tickDiv.style.left = `${scale_number(x)}%`;
-            }
-        } else if (angleDeg > 225 && angleDeg <= 315) {
-
-            if (i % 15 === 0) {
-                tickDiv.className = 'tick00 tick-medium00';
-                tickDiv.style.left = `${mediumOffset}vw`;
-                tickDiv.style.top = `${y}%`;
-            } else if (i % 5 === 0) {
-                tickDiv.className = 'tick00 tick-large00';
-                tickDiv.style.left = `${largeOffset}vw`;
-                tickDiv.style.top = `${y > 50 ? y + 3 : y - 3}%`;
-            } else {
-                tickDiv.className = 'tick00 tick-small00';
-                tickDiv.style.left = `${smallOffset}vw`;
-                tickDiv.style.top = `${scale_number(y)}%`;
-            }
+        if (j % 8 == 0) {
+            tickDiv.classList.add('tick-large00');
+        }
+        else if ((j + 2) % 5 == 0) {
+            tickDiv.classList.add('tick-medium00');
+        }
+        else {
+            tickDiv.classList.add('tick-small00');
         }
 
         panel.appendChild(tickDiv);
