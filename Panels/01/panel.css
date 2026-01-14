@@ -1,0 +1,21 @@
+.month01 {
+  font-size: 4vw;
+  color: #ff0000;
+}
+
+.dark01 {
+  color: #800000;
+}
+
+.red01 {
+  color: #ff0000;
+}
+
+.weekdays01 {
+  font-family: "San Fransisco Mono", monospace;
+  font-size: 4vw;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1vw;
+}

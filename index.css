@@ -97,13 +97,14 @@ img {
 #rightPanel {
   width: 40vw;
   height: 35vw;
+  position: relative;
 
   /* outline: 1px solid #fff;
   border-radius: 32px;
   overflow: visible; */
 }
 
-#clockBackground {
+/* #clockBackground {
   position: relative;
   width: 100%;
   height: 100%;
@@ -130,4 +131,4 @@ img {
   background-color: #800000;
   width: 0.5vw;
   height: 3vw;
-}
+} */

@@ -23,7 +23,6 @@ controls.addEventListener('mouseenter', resetHideTimer);
 controls.addEventListener('mousemove', resetHideTimer);
 controls.addEventListener('touchstart', resetHideTimer);
 
-// Fullscreen functionality for enterFullscreen and exitFullscreen buttons
 const enterFullscreenBtn = document.getElementById('enterFullscreen');
 const exitFullscreenBtn = document.getElementById('exitFullscreen');
 
@@ -37,35 +36,30 @@ function showEnterFullscreen(show) {
     }
 }
 
-// Setup initial state
 if (enterFullscreenBtn && exitFullscreenBtn) {
-    // Start by showing enter, hiding exit
     showEnterFullscreen(true);
 
-    // Enter fullscreen on click
     enterFullscreenBtn.addEventListener('click', () => {
         const elem = document.documentElement;
         if (elem.requestFullscreen) {
             elem.requestFullscreen();
-        } else if (elem.webkitRequestFullscreen) { // Safari
+        } else if (elem.webkitRequestFullscreen) {
             elem.webkitRequestFullscreen();
-        } else if (elem.msRequestFullscreen) { // IE11
+        } else if (elem.msRequestFullscreen) {
             elem.msRequestFullscreen();
         }
     });
 
-    // Exit fullscreen on click
     exitFullscreenBtn.addEventListener('click', () => {
         if (document.exitFullscreen) {
             document.exitFullscreen();
-        } else if (document.webkitExitFullscreen) { // Safari
+        } else if (document.webkitExitFullscreen) {
             document.webkitExitFullscreen();
-        } else if (document.msExitFullscreen) { // IE11
+        } else if (document.msExitFullscreen) {
             document.msExitFullscreen();
         }
     });
 
-    // Listen for fullscreen changes to toggle icons
     document.addEventListener('fullscreenchange', () => {
         if (document.fullscreenElement) {
             showEnterFullscreen(false);
@@ -89,110 +83,158 @@ if (enterFullscreenBtn && exitFullscreenBtn) {
     });
 }
 
+const leftNext = document.getElementById('leftNext');
+const leftPrevious = document.getElementById('leftPrevious');
+const leftPanel = document.getElementById('leftPanel');
+const rightNext = document.getElementById('rightNext');
+const rightPrevious = document.getElementById('rightPrevious');
+const rightPanel = document.getElementById('rightPanel');
 
+// Use localStorage to persist panel IDs
+const LEFT_PANEL_KEY = 'leftPanelID';
+const RIGHT_PANEL_KEY = 'rightPanelID';
 
-/*
-panel stuff
-*/
-
-const clockBackground = document.getElementById("clockBackground");
-
-// Derived from:
-// Slope (m) = (90 - 10) / (83.4565... - 16.5434...) ≈ 1.1956
-// Intercept (b) ≈ -9.78
-function scale_number(x) {
-    const m = 1.2852;
-    const b = -14.2625;
-    return (m * x) + b;
+// Helper - get saved panelID value or default to 0x00
+function getSavedPanelID(key) {
+    let v = localStorage.getItem(key);
+    if (v === null || isNaN(parseInt(v))) return 0x00;
+    let n = Number(v);
+    if (Number.isNaN(n) || n < 0 || n > 255) return 0x00;
+    return n;
 }
 
-function generatePanel() {
-    for (let i = 1; i <= 60; i++) {
-        let angleDeg = i * 6;
-        let angleRad = (angleDeg - 90) * (Math.PI / 180);
+let leftPanelID = getSavedPanelID(LEFT_PANEL_KEY);
+let rightPanelID = getSavedPanelID(RIGHT_PANEL_KEY);
 
-        const cos = Math.cos(angleRad);
-        const sin = Math.sin(angleRad);
-        // console.log(i, angleDeg);
-
-        let x = 50 + 50 * cos;
-        let y = 50 + 50 * sin;
-
-        let tickDiv = document.createElement('div');
-        tickDiv.style.position = 'absolute';
-        // tickDiv.style.left = `${x}%`;
-        // tickDiv.style.top = `${y}%`;
-        tickDiv.style.transform = `translate(-50%, -50%) rotate(${angleDeg}deg)`;
-
-        smallOffset = 1.3;
-        mediumOffset = 2.9;
-        largeOffset = 3.5;
-
-        if (angleDeg <= 45 || angleDeg > 315) {
-            if (i % 15 === 0) {
-                tickDiv.className = 'tick tick-medium';
-                tickDiv.style.top = `${mediumOffset}vw`;
-                tickDiv.style.left = `${scale_number(x)}%`;
-            } else if (i % 5 === 0) {
-                tickDiv.className = 'tick tick-large';
-                tickDiv.style.top = `${largeOffset}vw`;
-                tickDiv.style.left = `${x > 50 ? x + 4 : x - 4}%`;
-            } else {
-                tickDiv.className = 'tick tick-small';
-                tickDiv.style.top = `${smallOffset}vw`;
-                tickDiv.style.left = `${scale_number(x)}%`;
-            }
-        } else if (angleDeg > 45 && angleDeg <= 135) {
-            if (i % 15 === 0) {
-                tickDiv.className = 'tick tick-medium';
-                tickDiv.style.left = `calc(100% - ${mediumOffset}vw)`;
-                tickDiv.style.top = `${scale_number(y)}%`;
-            } else if (i % 5 === 0) {
-                tickDiv.className = 'tick tick-large';
-                tickDiv.style.left = `calc(100% - ${largeOffset}vw)`;
-                tickDiv.style.top = `${y > 50 ? y + 4 : y - 4}%`;
-            } else {
-                tickDiv.className = 'tick tick-small';
-                tickDiv.style.left = `calc(100% - ${smallOffset}vw)`;
-                tickDiv.style.top = `${scale_number(y)}%`;
-            }
-        } else if (angleDeg > 135 && angleDeg <= 225) {
-
-            if (i % 15 === 0) {
-                tickDiv.className = 'tick tick-medium';
-                tickDiv.style.top = `calc(100% - ${mediumOffset}vw)`;
-                tickDiv.style.left = `${x}%`;
-            } else if (i % 5 === 0) {
-                tickDiv.className = 'tick tick-large';
-                tickDiv.style.top = `calc(100% - ${largeOffset}vw)`;
-                tickDiv.style.left = `${x > 50 ? x + 4 : x - 4}%`;
-            } else {
-                tickDiv.className = 'tick tick-small';
-                tickDiv.style.top = `calc(100% - ${smallOffset}vw)`;
-                tickDiv.style.left = `${scale_number(x)}%`;
-            }
-        } else if (angleDeg > 225 && angleDeg <= 315) {
-
-            if (i % 15 === 0) {
-                tickDiv.className = 'tick tick-medium';
-                tickDiv.style.left = `${mediumOffset}vw`;
-                tickDiv.style.top = `${y}%`;
-            } else if (i % 5 === 0) {
-                tickDiv.className = 'tick tick-large';
-                tickDiv.style.left = `${largeOffset}vw`;
-                tickDiv.style.top = `${y > 50 ? y + 4 : y - 4}%`;
-            } else {
-                tickDiv.className = 'tick tick-small';
-                tickDiv.style.left = `${smallOffset}vw`;
-                tickDiv.style.top = `${scale_number(y)}%`;
-            }
-        }
-
-        // tickDiv.dataset.angle = angleDeg;
-        // tickDiv.dataset.scale = angleDeg % 45;
-        clockBackground.appendChild(tickDiv);
+function removeOldPanelScript(scriptId) {
+    const script = document.getElementById(scriptId);
+    if (script) {
+        script.remove();
+    }
+    if (window.clockBackground !== undefined) {
+        try { delete window.clockBackground; } catch { }
+    }
+    if (window.scale_number !== undefined) {
+        try { delete window.scale_number; } catch { }
+    }
+    if (window.generatePanel !== undefined) {
+        try { delete window.generatePanel; } catch { }
     }
 }
 
+async function loadLeftPanel(panelID) {
+    let oldPanelCSS = document.getElementById('leftPanelCSS');
+    if (oldPanelCSS) oldPanelCSS.remove();
 
-generatePanel();
+    removeOldPanelScript('leftPanelJS');
+
+    const hexID = panelID.toString(16).padStart(2, '0');
+    const basePath = `Panels/${hexID}/`;
+
+    try {
+        const htmlRes = await fetch(basePath + 'panel.html');
+        if (!htmlRes.ok) throw new Error('Panel HTML not found');
+        const htmlText = await htmlRes.text();
+        leftPanel.innerHTML = htmlText;
+    } catch (e) {
+        leftPanel.innerHTML = `<div style="color:red;text-align:center;padding:32px">Panel ${hexID} not found.</div>`;
+        return;
+    }
+
+    const cssLink = document.createElement('link');
+    cssLink.rel = 'stylesheet';
+    cssLink.href = basePath + 'panel.css';
+    cssLink.id = 'leftPanelCSS';
+    document.head.appendChild(cssLink);
+
+    const jsScript = document.createElement('script');
+    jsScript.id = 'leftPanelJS';
+    jsScript.type = "text/javascript";
+    try {
+        const jsRes = await fetch(basePath + 'panel.js');
+        if (jsRes.ok) {
+            let code = await jsRes.text();
+            code = `(function(){\n${code}\n})();`;
+            jsScript.text = code;
+        } else {
+            jsScript.src = basePath + 'panel.js';
+        }
+    } catch (e) {
+        jsScript.src = basePath + 'panel.js';
+    }
+    leftPanel.appendChild(jsScript);
+}
+
+async function loadRightPanel(panelID) {
+    let oldPanelCSS = document.getElementById('rightPanelCSS');
+    if (oldPanelCSS) oldPanelCSS.remove();
+
+    removeOldPanelScript('rightPanelJS');
+
+    const hexID = panelID.toString(16).padStart(2, '0');
+    const basePath = `Panels/${hexID}/`;
+
+    try {
+        const htmlRes = await fetch(basePath + 'panel.html');
+        if (!htmlRes.ok) throw new Error('Panel HTML not found');
+        const htmlText = await htmlRes.text();
+        rightPanel.innerHTML = htmlText;
+    } catch (e) {
+        rightPanel.innerHTML = `<div style="color:red;text-align:center;padding:32px">Panel ${hexID} not found.</div>`;
+        return;
+    }
+
+    const cssLink = document.createElement('link');
+    cssLink.rel = 'stylesheet';
+    cssLink.href = basePath + 'panel.css';
+    cssLink.id = 'rightPanelCSS';
+    document.head.appendChild(cssLink);
+
+    const jsScript = document.createElement('script');
+    jsScript.id = 'rightPanelJS';
+    jsScript.type = "text/javascript";
+    try {
+        const jsRes = await fetch(basePath + 'panel.js');
+        if (jsRes.ok) {
+            let code = await jsRes.text();
+            code = `(function(){\n${code}\n})();`;
+            jsScript.text = code;
+        } else {
+            jsScript.src = basePath + 'panel.js';
+        }
+    } catch (e) {
+        jsScript.src = basePath + 'panel.js';
+    }
+    rightPanel.appendChild(jsScript);
+}
+
+// Panel navigation, persisting state
+leftNext.addEventListener('click', () => {
+    leftPanelID = (leftPanelID + 1) & 0xff;
+    localStorage.setItem(LEFT_PANEL_KEY, leftPanelID);
+    loadLeftPanel(leftPanelID);
+});
+leftPrevious.addEventListener('click', () => {
+    leftPanelID = (leftPanelID - 1 + 0x100) & 0xff;
+    localStorage.setItem(LEFT_PANEL_KEY, leftPanelID);
+    loadLeftPanel(leftPanelID);
+});
+
+rightNext.addEventListener('click', () => {
+    rightPanelID = (rightPanelID + 1) & 0xff;
+    localStorage.setItem(RIGHT_PANEL_KEY, rightPanelID);
+    loadRightPanel(rightPanelID);
+});
+rightPrevious.addEventListener('click', () => {
+    rightPanelID = (rightPanelID - 1 + 0x100) & 0xff;
+    localStorage.setItem(RIGHT_PANEL_KEY, rightPanelID);
+    loadRightPanel(rightPanelID);
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+    // Always in case user clears storage or data
+    leftPanelID = getSavedPanelID(LEFT_PANEL_KEY);
+    rightPanelID = getSavedPanelID(RIGHT_PANEL_KEY);
+    loadLeftPanel(leftPanelID);
+    loadRightPanel(rightPanelID);
+});
