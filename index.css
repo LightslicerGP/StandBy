@@ -79,7 +79,7 @@ svg {
 
 img {
   width: 100vw;
-  height: 100vh;
+  height: 100vw;
   object-fit: cover;
   display: block;
   margin: 0;
@@ -93,123 +93,41 @@ img {
   height: 100vh;
 }
 
-#leftPanel {
-  width: 60vh;
-  height: 60vh;
+#leftPanel,
+#rightPanel {
+  width: 40vw;
+  height: 35vw;
 
   /* outline: 1px solid #fff;
-  border-radius: 50%;
+  border-radius: 32px;
   overflow: visible; */
-}
-
-#rightPanel {
-  width: calc(100vw - (20vh * 3) - 60vh);
-  height: 60vh;
 }
 
 #clockBackground {
   position: relative;
   width: 100%;
   height: 100%;
-  padding: 5%;
-  box-sizing: border-box;
 }
 
-.largeTick,
-.smallTick {
-  position: absolute;
-  transform: translate(-50%, -50%);
+.tick {
   transform-origin: center;
-  margin: 0;
+  border-radius: 1vw;
 }
 
-.largeTick {
+.tick-large {
+  background-color: #ff0000;
+  width: 0.5vw;
+  height: 8vw;
+}
+
+.tick-medium {
   background-color: #ff0000;
   width: 0.5vw;
   height: 6vw;
-  border-radius: 1vw;
 }
 
-.smallTick {
+.tick-small {
   background-color: #800000;
   width: 0.5vw;
   height: 3vw;
-  border-radius: 1vw;
-}
-
-:root {
-  --edge-offset: 11%;
-  --offset-d: 22%;
-}
-
-#tickLarge1 {
-  top: 10%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotate(0deg);
-}
-
-#tickSmall1 {
-  top: var(--edge-offset);
-  left: calc(50% + var(--offset-d));
-  transform: translate(-50%, -50%) rotate(30deg);
-}
-
-#tickSmall2 {
-  top: calc(50% - var(--offset-d));
-  right: var(--edge-offset);
-  transform: translate(50%, -50%) rotate(60deg);
-}
-
-#tickLarge2 {
-  top: 50%;
-  right: 10%;
-  transform: translate(50%, -50%) rotate(90deg);
-}
-
-#tickSmall3 {
-  bottom: calc(50% - var(--offset-d));
-  right: var(--edge-offset);
-  transform: translate(50%, 50%) rotate(120deg);
-}
-
-#tickSmall4 {
-  bottom: var(--edge-offset);
-  left: calc(50% + var(--offset-d));
-  transform: translate(-50%, 50%) rotate(150deg);
-}
-
-#tickLarge3 {
-  bottom: 10%;
-  left: 50%;
-  transform: translate(-50%, 50%) rotate(180deg);
-}
-
-#tickSmall5 {
-  bottom: var(--edge-offset);
-  left: calc(50% - var(--offset-d));
-  transform: translate(-50%, 50%) rotate(210deg);
-}
-
-#tickSmall6 {
-  bottom: calc(50% - var(--offset-d));
-  left: var(--edge-offset);
-  transform: translate(-50%, 50%) rotate(240deg);
-}
-
-#tickLarge4 {
-  top: 50%;
-  left: 10%;
-  transform: translate(-50%, -50%) rotate(270deg);
-}
-
-#tickSmall7 {
-  top: calc(50% - var(--offset-d));
-  left: var(--edge-offset);
-  transform: translate(-50%, -50%) rotate(300deg);
-}
-
-#tickSmall8 {
-  top: var(--edge-offset);
-  left: calc(50% - var(--offset-d));
-  transform: translate(-50%, -50%) rotate(330deg);
 }
