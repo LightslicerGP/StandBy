@@ -117,8 +117,8 @@ function removeOldPanelScript(scriptId) {
     if (window.scale_number !== undefined) {
         try { delete window.scale_number; } catch { }
     }
-    if (window.generatePanel !== undefined) {
-        try { delete window.generatePanel; } catch { }
+    if (window.setMonth !== undefined) {
+        try { delete window.setMonth; } catch { }
     }
 }
 

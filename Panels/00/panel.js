@@ -1,19 +1,15 @@
 // 1.14(13).26
 
-// Derived from:
-// Slope (m) = (90 - 10) / (83.4565... - 16.5434...) ≈ 1.1956
-// Intercept (b) ≈ -9.78
-
 function scale_number(x) {
     const margin = 4;
     let raw_percent = ((((x - 1) % 15)) / 14) * 100;
     return margin + (raw_percent * (100 - (2 * margin)) / 100);
 }
 
-function generatePanel(panel) {
-    panel.innerHTML = '';
+function setMonth(background) {
+    background.innerHTML = '';
 
-    const rect = panel.getBoundingClientRect();
+    const rect = background.getBoundingClientRect();
     const panelWidth = rect.width;
     const panelHeight = rect.height;
 
@@ -67,15 +63,14 @@ function generatePanel(panel) {
             tickDiv.classList.add('tick-small00');
         }
 
-        panel.appendChild(tickDiv);
+        background.appendChild(tickDiv);
     }
 }
 
-document.querySelectorAll(".clockBackground00").forEach(panel => {
-    generatePanel(panel);
+document.querySelectorAll(".clockBackground00").forEach(background => {
+    setMonth(background);
 });
 
-// Rotates the clock hands for every .clockHands00 container found
 function updateClockHands() {
     const now = new Date();
     const hour = now.getHours() % 12;
@@ -88,10 +83,9 @@ function updateClockHands() {
         const minuteHand = clock.querySelector(".minute00");
         const secondHand = clock.querySelector(".second00");
 
-        // Calculate angles
-        const hourAngle = (hour + minute / 60) * 30; // 360/12 = 30
-        const minuteAngle = (minute + second / 60) * 6; // 360/60 = 6
-        const secondAngle = (second + ms / 1000) * 6; // continuous, 360/60 = 6
+        const hourAngle = (hour + minute / 60) * 30;
+        const minuteAngle = (minute + second / 60) * 6;
+        const secondAngle = (second + ms / 1000) * 6;
 
         if (hourHand) {
             hourHand.style.transform = `rotate(${hourAngle}deg)`;
@@ -105,7 +99,6 @@ function updateClockHands() {
     });
 }
 
-// Start the animation
 function startClockAnimation() {
     updateClockHands();
     requestAnimationFrame(startClockAnimation);
