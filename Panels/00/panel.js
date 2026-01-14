@@ -5,7 +5,7 @@
 // Intercept (b) ≈ -9.78
 
 function scale_number(x) {
-    const margin = 6;
+    const margin = 4;
     let raw_percent = ((((x - 1) % 15)) / 14) * 100;
     return margin + (raw_percent * (100 - (2 * margin)) / 100);
 }
@@ -13,38 +13,57 @@ function scale_number(x) {
 function generatePanel(panel) {
     panel.innerHTML = '';
 
+    const rect = panel.getBoundingClientRect();
+    const panelWidth = rect.width;
+    const panelHeight = rect.height;
+
     for (let i = 1; i <= 60; i++) {
         let tickDiv = document.createElement('div');
         tickDiv.style.position = 'absolute';
-        tickDiv.style.transform = `translate(-50%, 0%)`;
         tickDiv.classList.add('tick00');
 
+        let xPct = 0;
+        let yPct = 0;
+        const val = scale_number(i);
+
         if (i >= 1 && i <= 15) {
-            tickDiv.style.top = "0%";
-            tickDiv.style.left = `${scale_number(i)}%`;
+            xPct = val;
+            yPct = 0;
         } else if (i >= 16 && i <= 30) {
-            tickDiv.style.left = "100%";
-            tickDiv.style.top = `${scale_number(i)}%`;
-            tickDiv.style.transform = `rotate(${90}deg)`
+            xPct = 100;
+            yPct = val;
         } else if (i >= 31 && i <= 45) {
-            tickDiv.style.top = "100%";
-            tickDiv.style.left = `${scale_number(i)}%`;
-            tickDiv.style.transform = `rotate(${180}deg)`
+            xPct = val;
+            yPct = 100;
         } else if (i >= 46 && i <= 60) {
-            tickDiv.style.left = "0%";
-            tickDiv.style.top = `${scale_number(i)}%`;
-            tickDiv.style.transform = `rotate(${-90}deg)`
+            xPct = 0;
+            yPct = val;
         }
+
+        tickDiv.style.left = `${xPct}%`;
+        tickDiv.style.top = `${yPct}%`;
+
+        const tickX_px = (xPct / 100) * panelWidth;
+        const tickY_px = (yPct / 100) * panelHeight;
+
+        const centerX_px = panelWidth / 2;
+        const centerY_px = panelHeight / 2;
+
+        const deltaX = centerX_px - tickX_px;
+        const deltaY = centerY_px - tickY_px;
+
+        const rad = Math.atan2(deltaY, deltaX);
+
+        const deg = rad * (180 / Math.PI) + 90;
+
+        tickDiv.style.transform = `translate(-50%, 0%) rotate(${deg - 180}deg)`;
 
         const j = ((i - 1) % 15) + 1;
-
         if (j % 8 == 0) {
-            tickDiv.classList.add('tick-large00');
-        }
-        else if ((j + 2) % 5 == 0) {
             tickDiv.classList.add('tick-medium00');
-        }
-        else {
+        } else if ((j + 2) % 5 == 0) {
+            tickDiv.classList.add('tick-large00');
+        } else {
             tickDiv.classList.add('tick-small00');
         }
 
