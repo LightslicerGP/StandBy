@@ -6,10 +6,6 @@
   color: #ff0000;
 }
 
-.grid01 > * {
-  font-size: 3vw;
-}
-
 .grid01 {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -19,6 +15,7 @@
   box-sizing: border-box;
 }
 .grid01 > * {
+  font-size: 2.5vw;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -36,5 +33,5 @@
   grid-row: 1 / 2;
   justify-content: flex-start;
   text-align: left;
-  margin-left: 2vw;
+  margin-left: 5%;
 }
