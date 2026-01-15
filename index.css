@@ -79,21 +79,27 @@ svg {
 
 .panels {
   display: flex;
-  justify-content: space-evenly;
+  /* justify-content: space-evenly; */
   align-items: center;
   width: 100vw;
   height: 100vh;
+
+  justify-content: center;
+  gap: 16px;
 }
 
 #leftPanel,
 #rightPanel {
-  width: 40vw;
-  height: 35vw;
+  /* width: 40vw;
+  height: 35vw; */
   position: relative;
 
   /* outline: 1px solid #fff;
   border-radius: 32px;
   overflow: visible; */
+
+  width: calc((100vw - (64px + 16px)) / 2);
+  height: calc(100vh - 64px);
 }
 
 @media (orientation: portrait) {
@@ -103,7 +109,10 @@ svg {
 
   #leftPanel,
   #rightPanel {
-    width: 35vh;
-    height: 40vh;
+    /* width: 35vh;
+    height: 40vh; */
+
+    width: calc(100vw - 64px);
+    height: calc((100vh - (64px + 16px)) / 2);
   }
 }
