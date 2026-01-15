@@ -1,9 +1,9 @@
-.dark01 {
-  color: #800000;
-}
-
 .red01 {
   color: #ff0000;
+}
+
+.dark01 {
+  color: #800000;
 }
 
 .grid01 {
@@ -12,8 +12,8 @@
   grid-auto-rows: 1fr;
   height: 100%;
   width: 100%;
-  box-sizing: border-box;
 }
+
 .grid01 > * {
   font-size: 2.5vw;
   display: flex;

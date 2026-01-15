@@ -1,6 +1,6 @@
 // 1.14.26
 
-function setMonth(element) {
+function setMonth01(element) {
     const now = new Date();
     const monthNames = [
         "January", "February", "March", "April", "May", "June",
@@ -11,7 +11,7 @@ function setMonth(element) {
 }
 
 document.querySelectorAll(".month01").forEach(element => {
-    setMonth(element);
+    setMonth01(element);
 });
 
 document.querySelectorAll(".grid01").forEach(grid => {

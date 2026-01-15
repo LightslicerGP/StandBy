@@ -1,12 +1,21 @@
 // 1.14(13).26
 
-function scale_number(x) {
-    const margin = 4;
-    let raw_percent = ((((x - 1) % 15)) / 14) * 100;
-    return margin + (raw_percent * (100 - (2 * margin)) / 100);
+function scale_number00(x, weight = 1.1, margin = 4) {
+    let t = ((x - 1) % 15) / 14;
+    let centered = 2 * t - 1;
+    // Weight > 1: Clusters ticks in the center
+    // Weight < 1: Clusters ticks at the edges
+    // Weight = 1: Linear (Even spacing)
+    let curved = Math.sign(centered) * Math.pow(Math.abs(centered), weight);
+    let normalized_curve = (curved + 1) / 2;
+    return margin + (normalized_curve * (100 - (2 * margin)));
 }
 
-function setMonth(background) {
+// Weight = 1.0  -> Linear (Standard, equal spacing)
+// Weight = 2.0  -> Quadratic (Center ticks closer, Edges spread out)
+// Weight = 3.0  -> Cubic (Center ticks VERY close, Edges VERY spread)
+
+function setMonth00(background) {
     background.innerHTML = '';
 
     const rect = background.getBoundingClientRect();
@@ -20,7 +29,7 @@ function setMonth(background) {
 
         let xPct = 0;
         let yPct = 0;
-        const val = scale_number(i);
+        const val = scale_number00(i);
 
         if (i >= 1 && i <= 15) {
             xPct = val;
@@ -68,10 +77,10 @@ function setMonth(background) {
 }
 
 document.querySelectorAll(".clockBackground00").forEach(background => {
-    setMonth(background);
+    setMonth00(background);
 });
 
-function updateClockHands() {
+function updateClockHands00() {
     const now = new Date();
     const hour = now.getHours() % 12;
     const minute = now.getMinutes();
@@ -99,8 +108,8 @@ function updateClockHands() {
     });
 }
 
-function startClockAnimation() {
-    updateClockHands();
-    requestAnimationFrame(startClockAnimation);
+function startClockAnimation00() {
+    updateClockHands00();
+    requestAnimationFrame(startClockAnimation00);
 }
-startClockAnimation();
+startClockAnimation00();

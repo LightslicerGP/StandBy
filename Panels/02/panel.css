@@ -1,0 +1,29 @@
+.red02 {
+  color: #ff0000;
+}
+
+.dark02 {
+  color: #800000;
+}
+
+.texts02 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.time02,
+.date02 {
+  display: flex;
+}
+
+.time02 {
+  font-size: 7vw;
+  font-weight: bold;
+}
+
+.date02 {
+  font-size: 3vw;
+}
