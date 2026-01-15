@@ -105,26 +105,26 @@
 }
 
 .twelve00 {
-  top: 17%;
+  top: 6.5vw;
   left: 50%;
   transform: translate(-50%, 0);
 }
 
 .three00 {
   top: 50%;
-  right: 17%;
+  right: 7vw;
   transform: translate(0, -50%);
 }
 
 .six00 {
-  bottom: 17%;
+  bottom: 6.5vw;
   left: 50%;
   transform: translate(-50%, 0);
 }
 
 .nine00 {
   top: 50%;
-  left: 17%;
+  left: 7vw;
   transform: translate(0, -50%);
 }
 
@@ -188,5 +188,21 @@
   .six00,
   .nine00 {
     font-size: 4vh;
+  }
+
+  .twelve00 {
+    top: 6.5vh;
+  }
+
+  .three00 {
+    right: 7vh;
+  }
+
+  .six00 {
+    bottom: 6.5vh;
+  }
+
+  .nine00 {
+    left: 7vh;
   }
 }
