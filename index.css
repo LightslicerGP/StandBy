@@ -64,8 +64,8 @@ svg {
   justify-content: space-between;
   padding: 32px;
   z-index: 10;
-  height: calc(100vh - 64px);
-  width: calc(100vw - 64px);
+  height: calc(100dvh - 64px);
+  width: calc(100dvw - 64px);
   transition: all 0.1s ease-in-out;
 }
 
@@ -81,8 +81,8 @@ svg {
   display: flex;
   /* justify-content: space-evenly; */
   align-items: center;
-  width: 100vw;
-  height: 100vh;
+  width: 100dvw;
+  height: 100dvh;
 
   justify-content: center;
   gap: 16px;
@@ -98,8 +98,8 @@ svg {
   border-radius: 32px;
   overflow: visible; */
 
-  width: calc((100vw - (64px + 16px)) / 2);
-  height: calc(100vh - 64px);
+  width: calc((100dvw - (64px + 16px)) / 2);
+  height: calc(100dvh - 64px);
 }
 
 @media (orientation: portrait) {
@@ -112,7 +112,7 @@ svg {
     /* width: 35vh;
     height: 40vh; */
 
-    width: calc(100vw - 64px);
-    height: calc((100vh - (64px + 16px)) / 2);
+    width: calc(100dvw - 64px);
+    height: calc((100dvh - (64px + 16px)) / 2);
   }
 }
