@@ -34,6 +34,7 @@
   justify-content: flex-start;
   text-align: left;
   margin-left: 5%;
+  font-weight: bold;
 }
 
 @media (orientation: portrait) {

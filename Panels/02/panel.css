@@ -20,20 +20,20 @@
 }
 
 .time02 {
-  font-size: 7vw;
+  font-size: 9vw;
   font-weight: bold;
 }
 
 .date02 {
-  font-size: 3vw;
+  font-size: 4vw;
 }
 
 @media (orientation: portrait) {
   .time02 {
-    font-size: 7vh;
+    font-size: 9vh;
   }
 
   .date02 {
-    font-size: 3vh;
+    font-size: 4vh;
   }
 }
