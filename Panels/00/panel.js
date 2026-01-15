@@ -15,7 +15,7 @@ function scale_number00(x, weight = 1.1, margin = 4) {
 // Weight = 2.0  -> Quadratic (Center ticks closer, Edges spread out)
 // Weight = 3.0  -> Cubic (Center ticks VERY close, Edges VERY spread)
 
-function setMonth00(background) {
+function setBackground000(background) {
     background.innerHTML = '';
 
     const rect = background.getBoundingClientRect();
@@ -77,7 +77,7 @@ function setMonth00(background) {
 }
 
 document.querySelectorAll(".clockBackground00").forEach(background => {
-    setMonth00(background);
+    setBackground000(background);
 });
 
 function updateClockHands00() {

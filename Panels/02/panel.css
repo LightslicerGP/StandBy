@@ -27,3 +27,13 @@
 .date02 {
   font-size: 3vw;
 }
+
+@media (orientation: portrait) {
+  .time02 {
+    font-size: 7vh;
+  }
+
+  .date02 {
+    font-size: 3vh;
+  }
+}

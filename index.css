@@ -77,14 +77,6 @@ svg {
   justify-content: space-between;
 }
 
-img {
-  width: 100vw;
-  height: 100vw;
-  object-fit: cover;
-  display: block;
-  margin: 0;
-}
-
 .panels {
   display: flex;
   justify-content: space-evenly;
@@ -102,4 +94,16 @@ img {
   /* outline: 1px solid #fff;
   border-radius: 32px;
   overflow: visible; */
+}
+
+@media (orientation: portrait) {
+  .panels {
+    flex-direction: column;
+  }
+
+  #leftPanel,
+  #rightPanel {
+    width: 35vh;
+    height: 40vh;
+  }
 }
